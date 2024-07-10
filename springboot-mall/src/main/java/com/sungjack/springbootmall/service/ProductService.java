@@ -8,9 +8,14 @@ public interface ProductService {
     Product getProductById(Integer productId);
 
 
-
     Integer createProduct(ProductRequest productRequest);
+
     //參數有兩個
-    void updateProduct( Integer productId, ProductRequest productRequest);
+    void updateProduct(Integer productId, ProductRequest productRequest);
+
+    void deleteProductById(Integer productId);
+
+
+
 
 }
