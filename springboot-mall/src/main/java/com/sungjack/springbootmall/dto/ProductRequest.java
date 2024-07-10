@@ -1,39 +1,29 @@
-package com.sungjack.springbootmall.model;
+package com.sungjack.springbootmall.dto;
 
 
 import com.sungjack.springbootmall.constant.ProductCategory;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
+//此類別是一個雜項，決定前端要傳那些
+public class ProductRequest {
 
-public class Product {
-
-    private Integer productId;
-
+@NotNull
     private String productName;
-
+    @NotNull
     private ProductCategory category;
-
+    @NotNull
     private String imageUrl;
 
+    @NotNull
     private Integer price;
 
+    @NotNull
     private Integer stock;
 
+
     private String description;
-
-    private Timestamp createdDate;
-
-    private Timestamp lastModifiedDate;
-
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
 
     public String getProductName() {
         return productName;
@@ -81,22 +71,5 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-
-    public Timestamp getCreatedDated() {
-        return createdDate;
-    }
-
-    public void setCreatedDated(Timestamp createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Timestamp getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Timestamp lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 }
