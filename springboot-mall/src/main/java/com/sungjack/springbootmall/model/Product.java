@@ -3,7 +3,8 @@ package com.sungjack.springbootmall.model;
 
 import com.sungjack.springbootmall.constant.ProductCategory;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Product {
 
@@ -21,9 +22,9 @@ public class Product {
 
     private String description;
 
-    private Date createdDated;
+    private Timestamp createdDate;
 
-    private Date lastModifiedDate;
+    private Timestamp lastModifiedDate;
 
 
     public Integer getProductId() {
@@ -84,18 +85,18 @@ public class Product {
 
 
     public Date getCreatedDated() {
-        return createdDated;
+        return createdDate;
     }
 
-    public void setCreatedDated(Date createdDated) {
-        this.createdDated = createdDated;
+    public void setCreatedDated(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Timestamp lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }
