@@ -10,4 +10,7 @@ public interface ProductService {
 
 
     Integer createProduct(ProductRequest productRequest);
+    //參數有兩個
+    void updateProduct( Integer productId, ProductRequest productRequest);
+
 }

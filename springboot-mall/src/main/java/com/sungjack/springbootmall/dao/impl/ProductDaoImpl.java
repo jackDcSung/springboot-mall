@@ -52,25 +52,22 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Integer createProduct(ProductRequest productRequest) {
 
-
-        String sql = "INSERT INTO product (product_name, category, image_url, price, stock," +
+        String sql = "INSERT INTO product (product_name, category, image_url, price, stock, " +
                 "description, created_date, last_modified_date) " +
-                "VALUES (:product_name, :category, :image_url, :price, :stock,:description," +
-                ":created_date, :last_modified_date)";
-
+                "VALUES (:productName, :category, :imageUrl, :price, :stock, :description, " +
+                ":createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
-        map.put("product_Name", productRequest.getProductName());
+        map.put("productName", productRequest.getProductName());
         map.put("category", productRequest.getCategory().toString());
-        map.put("image_url", productRequest.getImageUrl());
+        map.put("imageUrl", productRequest.getImageUrl());
         map.put("price", productRequest.getPrice());
         map.put("stock", productRequest.getStock());
         map.put("description", productRequest.getDescription());
 
         Date now = new Date();
-        map.put("createDate", now);
-        map.put("lastModifieDate", now);
-
+        map.put("createdDate", now);
+        map.put("lastModifiedDate", now);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -79,19 +76,36 @@ public class ProductDaoImpl implements ProductDao {
         int productId = keyHolder.getKey().intValue();
 
         return productId;
+    }
+
+    @Override
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
+//也會更新last_modified_date
+        //要注意!!
+        String sql = "update  product set product_name=:productName, category=:category, image_url=:imageUrl," +
+                " price=:price, stock=:stock,description=:description, last_modified_date=:lastModifiedDate " +
+                "where product_id=:productId";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("productId", productId);
+        map.put("productName", productRequest.getProductName());
+        map.put("category", productRequest.getCategory().toString());
+        map.put("imageUrl", productRequest.getImageUrl());
+        map.put("price", productRequest.getPrice());
+        map.put("stock", productRequest.getStock());
+        map.put("description", productRequest.getDescription());
+
+        map.put("lastModifiedDate", new Date());
+
+
+        namedParameterJdbcTemplate.update(sql, map);
 
 
     }
 
 
-
-
-
-
-
-
-
-    }
+}
 
 
 
