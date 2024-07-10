@@ -7,13 +7,22 @@ import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductDao productDao;
+private ProductDao productDao;
+
+
+    @Override
+    public List<Product> getproducts() {
+        return  productDao.getProducts();
+    }
 
     @Override
     public Product getProductById(Integer productId) {

@@ -10,12 +10,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
 
     @Autowired
     private ProductService productService;
+
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts() {
+
+        List<Product> productList = productService.getproducts();
+
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
+
 
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
@@ -68,23 +80,19 @@ public class ProductController {
 
     }
 
-//為什麼不用檢查是否存在呢?
+    //為什麼不用檢查是否存在呢?
     //刪除商品的意義，對前端來說，是否不存在就好，存不存在對我沒有意義，他只要我們告訴她商品不在就好
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
 
 
-
         productService.deleteProductById(productId);
 
 
-        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
 
     }
-
-
 
 
 }
