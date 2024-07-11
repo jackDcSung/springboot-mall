@@ -38,27 +38,31 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String, Object> map = new HashMap<>();
 
-        if(productQueryParams.getCategory()!=null){
 
-            sql=sql+ " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
+        //查詢條件
+        if (productQueryParams.getCategory() != null) {
+
+            sql = sql + " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
             map.put("category", productQueryParams.getCategory().name());
 
         }
 
-        if (productQueryParams.getSearch()!=null){
-            sql=sql+ " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
+        if (productQueryParams.getSearch() != null) {
+            sql = sql + " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
 
-            map.put("search", "%"+ productQueryParams.getSearch()+ "%");
+            map.put("search", "%" + productQueryParams.getSearch() + "%");
 
         }
 
 
-        /*
-
-        **/
-        sql=sql+" ORDER BY "+productQueryParams.getOrderBy()+" " + productQueryParams.getSort();
+        //排序
+        sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
 
 
+        //分頁
+        sql = sql + " LIMIT :limit OFFSET :offset";
+        map.put("limit", productQueryParams.getLimit());
+        map.put("offset", productQueryParams.getOffset());
 
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());

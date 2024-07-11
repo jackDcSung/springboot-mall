@@ -7,17 +7,20 @@ import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@Validated
 @RestController
 public class ProductController {
-
-
 
 
     @Autowired
@@ -31,16 +34,32 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,            //重點!代表category參數是可選的參數
             @RequestParam(required = false) String search,
 
+
             //排序 sorting
-            @RequestParam(defaultValue="created_date") String orderBy,
-            @RequestParam(defaultValue="desc") String sort
+            @RequestParam(defaultValue = "created_date") String orderBy,
+            @RequestParam(defaultValue = "desc") String sort,
+
+
+            /*
+            分頁 Pagination(對應到MYSQL limit 和 offsset 的語法)
+            想讓他們是可選的話，兩種方法
+            required=false
+            第二種是加上defaultvalue
+            這邊用第二種作法
+            */
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,//不可以比0小
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset //defaultValue = "0",表示預設不跳過任何一筆數據 從第 一筆開始取
+
 
     ) {
-        ProductQueryParams productQueryParams=new ProductQueryParams();
+        ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
         productQueryParams.setOrderBy(orderBy);
         productQueryParams.setSort(sort);
+        productQueryParams.setLimit(limit);
+        productQueryParams.setOffset(offset);
+
 
 
 
