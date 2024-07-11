@@ -18,22 +18,31 @@ import java.util.List;
 public class ProductController {
 
 
+
+
     @Autowired
     private ProductService productService;
 
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(
-            @RequestParam(required = false) ProductCategory category,            //重點!代表category參數是可選的參數
 
-            @RequestParam(required = false) String search
+            //查詢條件 Filting
+            @RequestParam(required = false) ProductCategory category,            //重點!代表category參數是可選的參數
+            @RequestParam(required = false) String search,
+
+            //排序 sorting
+            @RequestParam(defaultValue="created_date") String orderBy,
+            @RequestParam(defaultValue="desc") String sort
 
     ) {
         ProductQueryParams productQueryParams=new ProductQueryParams();
-
         productQueryParams.setCategory(category);
-
         productQueryParams.setSearch(search);
+        productQueryParams.setOrderBy(orderBy);
+        productQueryParams.setSort(sort);
+
+
 
 
 //        List<Product> productList = productService.getproducts(category, search);

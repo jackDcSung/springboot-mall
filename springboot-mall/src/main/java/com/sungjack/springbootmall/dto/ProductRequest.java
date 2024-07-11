@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 //此類別是一個雜項，決定前端要傳那些
 public class ProductRequest {
 
-@NotNull
+    @NotNull
     private String productName;
     @NotNull
     private ProductCategory category;
@@ -21,6 +21,7 @@ public class ProductRequest {
 
     @NotNull
     private Integer stock;
+
 
 
     private String description;
