@@ -1,6 +1,7 @@
 package com.sungjack.springbootmall.service;
 
-import com.sungjack.springbootmall.constant.ProductCategory;
+
+import com.sungjack.springbootmall.dao.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 
@@ -8,7 +9,10 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getproducts(ProductCategory category,String search);
+//    List<Product> getproducts(ProductCategory category,String search);
+
+    List<Product> getproducts(ProductQueryParams productQueryParams);
+
 
     Product getProductById(Integer productId);
 

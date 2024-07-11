@@ -3,6 +3,7 @@ package com.sungjack.springbootmall.dao.impl;
 
 import com.sungjack.springbootmall.constant.ProductCategory;
 import com.sungjack.springbootmall.dao.ProductDao;
+import com.sungjack.springbootmall.dao.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.rowmapper.ProductRowMapper;
@@ -28,7 +29,8 @@ public class ProductDaoImpl implements ProductDao {
 
 
     @Override
-    public List<Product> getProducts(ProductCategory category,String search) {
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+//原本的ProductCategory category,String search 改成 ProductQueryParams productQueryParams
 
         String sql = "select  product_id,product_name, category, image_url, price, stock, description," +
                 " created_date, last_modified_date " +
@@ -36,17 +38,17 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String, Object> map = new HashMap<>();
 
-        if(category!=null){
+        if(productQueryParams.getCategory()!=null){
 
             sql=sql+ " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
-            map.put("category", category.name());
+            map.put("category", productQueryParams.getCategory().name());
 
         }
 
-        if (search!=null){
+        if (productQueryParams.getSearch()!=null){
             sql=sql+ " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
 
-            map.put("search", "%"+ search+ "%");
+            map.put("search", "%"+ productQueryParams.getSearch()+ "%");
 
         }
 

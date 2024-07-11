@@ -2,6 +2,7 @@ package com.sungjack.springbootmall.controller;
 
 
 import com.sungjack.springbootmall.constant.ProductCategory;
+import com.sungjack.springbootmall.dao.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;
@@ -27,10 +28,18 @@ public class ProductController {
 
             @RequestParam(required = false) String search
 
-
     ) {
+        ProductQueryParams productQueryParams=new ProductQueryParams();
 
-        List<Product> productList = productService.getproducts(category,search);
+        productQueryParams.setCategory(category);
+
+        productQueryParams.setSearch(search);
+
+
+//        List<Product> productList = productService.getproducts(category, search);
+
+
+        List<Product> productList = productService.getproducts(productQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
