@@ -37,19 +37,10 @@ public class ProductDaoImpl implements ProductDao {
 
 
         //查詢條件
-        if (productQueryParams.getCategory() != null) {
 
-            sql = sql + " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
-            map.put("category", productQueryParams.getCategory().name());
+        sql = addFilterSql(sql, map, productQueryParams);
 
-        }
 
-        if (productQueryParams.getSearch() != null) {
-            sql = sql + " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
-
-            map.put("search", "%" + productQueryParams.getSearch() + "%");
-
-        }
 //在這邊第三個參數略有不從
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
@@ -70,19 +61,10 @@ public class ProductDaoImpl implements ProductDao {
 
 
         //查詢條件
-        if (productQueryParams.getCategory() != null) {
 
-            sql = sql + " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
-            map.put("category", productQueryParams.getCategory().name());
+        sql= addFilterSql(sql, map, productQueryParams);
 
-        }
 
-        if (productQueryParams.getSearch() != null) {
-            sql = sql + " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
-
-            map.put("search", "%" + productQueryParams.getSearch() + "%");
-
-        }
 
 
         //排序
@@ -188,6 +170,28 @@ public class ProductDaoImpl implements ProductDao {
         map.put("productId", productId);
 
         namedParameterJdbcTemplate.update(sql, map);
+    }
+
+
+    //如果只有在這個class才會用到的話，才會設成pravate，因為我們希望能夠更好的去管理程式的使用範圍
+    private String addFilterSql(String sql, Map<String, Object> map, ProductQueryParams productQueryParams) {
+
+
+        if (productQueryParams.getCategory() != null) {
+
+            sql = sql + " AND category=:category";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
+            map.put("category", productQueryParams.getCategory().name());
+
+        }
+
+        if (productQueryParams.getSearch() != null) {
+            sql = sql + " AND product_name LIKE :search";//這個空白鍵是非常重要的（這個只適用於　spring jdbc)
+
+            map.put("search", "%" + productQueryParams.getSearch() + "%");
+
+        }
+        return sql;
+
     }
 
 
