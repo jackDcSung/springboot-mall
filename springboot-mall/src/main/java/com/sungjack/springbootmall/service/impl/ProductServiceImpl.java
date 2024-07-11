@@ -15,12 +15,18 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-private ProductDao productDao;
+    private ProductDao productDao;
+
+
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        return productDao.countProduct(productQueryParams);
+    }
 
 
     @Override
     public List<Product> getproducts(ProductQueryParams productQueryParams) {
-        return  productDao.getProducts(productQueryParams);
+        return productDao.getProducts(productQueryParams);
     }
 
 
@@ -42,7 +48,7 @@ private ProductDao productDao;
     @Override
     public void updateProduct(Integer productId, ProductRequest productRequest) {
 
-        productDao.updateProduct(productId,productRequest);
+        productDao.updateProduct(productId, productRequest);
 
     }
 
@@ -51,7 +57,6 @@ private ProductDao productDao;
         productDao.deleteProductById(productId);
 
     }
-
 
 
 }

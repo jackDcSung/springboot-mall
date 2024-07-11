@@ -6,6 +6,7 @@ import com.sungjack.springbootmall.dao.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;
+import com.sungjack.springbootmall.util.Page;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -28,7 +29,8 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<Page<Product>> getProducts(
+
 
             //查詢條件 Filting
             @RequestParam(required = false) ProductCategory category,            //重點!代表category參數是可選的參數
@@ -61,15 +63,36 @@ public class ProductController {
         productQueryParams.setOffset(offset);
 
 
-
-
-
 //        List<Product> productList = productService.getproducts(category, search);
 
 
+        //取得 product list
         List<Product> productList = productService.getproducts(productQueryParams);
 
-        return ResponseEntity.status(HttpStatus.OK).body(productList);
+
+        //我們預期在productService裡有一個countProduct的方法，根據productQueryParams查詢條件計算商品總數
+        //之所以傳productQueryParams，是因為在不同查詢條件下，查詢出來的商品總筆數會有所不同
+
+        //取得product總數(總筆數)
+        Integer total = productService.countProduct(productQueryParams);
+
+//設定分頁responsebody的值
+        Page<Product> page = new Page<>();
+
+        page.setLimit(limit);
+
+        page.setOffset(total);
+
+        page.setTotal(null);//這個total的值代表在當前查詢條件底下總共有多少筆數據
+
+
+        page.setResults(productList);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+
+
+//        return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 
 
