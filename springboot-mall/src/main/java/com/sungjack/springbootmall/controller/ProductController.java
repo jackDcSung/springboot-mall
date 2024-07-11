@@ -1,6 +1,7 @@
 package com.sungjack.springbootmall.controller;
 
 
+import com.sungjack.springbootmall.constant.ProductCategory;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;
@@ -21,9 +22,15 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts() {
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,            //重點!代表category參數是可選的參數
 
-        List<Product> productList = productService.getproducts();
+            @RequestParam(required = false) String search
+
+
+    ) {
+
+        List<Product> productList = productService.getproducts(category,search);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }

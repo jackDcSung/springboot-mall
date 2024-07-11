@@ -1,6 +1,7 @@
 package com.sungjack.springbootmall.service.impl;
 
 
+import com.sungjack.springbootmall.constant.ProductCategory;
 import com.sungjack.springbootmall.dao.ProductDao;
 import com.sungjack.springbootmall.dao.impl.ProductDaoImpl;
 import com.sungjack.springbootmall.dto.ProductRequest;
@@ -20,8 +21,8 @@ private ProductDao productDao;
 
 
     @Override
-    public List<Product> getproducts() {
-        return  productDao.getProducts();
+    public List<Product> getproducts(ProductCategory category,String search) {
+        return  productDao.getProducts(category,search);
     }
 
     @Override
