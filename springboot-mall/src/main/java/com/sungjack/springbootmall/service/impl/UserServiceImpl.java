@@ -2,6 +2,7 @@ package com.sungjack.springbootmall.service.impl;
 
 
 import com.sungjack.springbootmall.dao.UserDao;
+import com.sungjack.springbootmall.dto.UserLoginRequset;
 import com.sungjack.springbootmall.dto.UserRegisterRequest;
 import com.sungjack.springbootmall.model.User;
 import com.sungjack.springbootmall.service.UserService;
@@ -50,6 +51,33 @@ public class UserServiceImpl implements UserService {
 //創建帳
 // 命名createuder因為它裡面單純實作
         return userDao.createUser(userRegisterRequest);
+
+    }
+
+    @Override
+    public User login(UserLoginRequset userLoginRequset) {
+
+        User user = userDao.getUserByEmail(userLoginRequset.getEmail());
+
+        if (user == null) {
+            log.warn("該 email {} 尚未註冊", userLoginRequset.getEmail());
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+
+
+        //切記，比較字串一定要用equals方法，不能用==
+        if (user.getPassword().equals(userLoginRequset.getPassword())) {
+
+            return user;
+
+
+        } else {
+            log.warn("email {} 的密碼不正確", userLoginRequset.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
 
     }
 }

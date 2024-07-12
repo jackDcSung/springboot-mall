@@ -1,6 +1,7 @@
 package com.sungjack.springbootmall.controller;
 
 
+import com.sungjack.springbootmall.dto.UserLoginRequset;
 import com.sungjack.springbootmall.dto.UserRegisterRequest;
 import com.sungjack.springbootmall.model.User;
 import com.sungjack.springbootmall.service.UserService;
@@ -29,6 +30,16 @@ public class UserController {
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequset userLoginRequset) {
+
+       User user= userService.login(userLoginRequset);
+
+       return ResponseEntity.status(HttpStatus.OK).body(user);
+
 
     }
 

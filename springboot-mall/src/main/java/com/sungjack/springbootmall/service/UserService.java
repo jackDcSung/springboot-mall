@@ -1,6 +1,7 @@
 package com.sungjack.springbootmall.service;
 
 
+import com.sungjack.springbootmall.dto.UserLoginRequset;
 import com.sungjack.springbootmall.dto.UserRegisterRequest;
 import com.sungjack.springbootmall.model.User;
 
@@ -12,6 +13,8 @@ public interface UserService {
 
     Integer register(UserRegisterRequest userRegisterRequest);
 
+
+    User login(UserLoginRequset  userLoginRequset);
 
 
 
