@@ -2,7 +2,7 @@ package com.sungjack.springbootmall.controller;
 
 
 import com.sungjack.springbootmall.constant.ProductCategory;
-import com.sungjack.springbootmall.dao.ProductQueryParams;
+import com.sungjack.springbootmall.dto.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 import com.sungjack.springbootmall.service.ProductService;

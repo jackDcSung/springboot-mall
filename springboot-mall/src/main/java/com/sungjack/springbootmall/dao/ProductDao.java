@@ -1,6 +1,6 @@
 package com.sungjack.springbootmall.dao;
 
-import com.sungjack.springbootmall.constant.ProductCategory;
+import com.sungjack.springbootmall.dto.ProductQueryParams;
 import com.sungjack.springbootmall.dto.ProductRequest;
 import com.sungjack.springbootmall.model.Product;
 

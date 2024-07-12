@@ -1,4 +1,4 @@
-package com.sungjack.springbootmall.dao;
+package com.sungjack.springbootmall.dto;
 
 
 import com.sungjack.springbootmall.constant.ProductCategory;
