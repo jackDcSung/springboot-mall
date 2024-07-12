@@ -1,12 +1,14 @@
 package com.sungjack.springbootmall.dto;
 
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class UserRegisterRequest {
 
 
     @NotBlank
+    @Email//限縮前端傳來是Email的格式
     private String email;
 
 

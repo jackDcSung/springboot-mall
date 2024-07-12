@@ -1,14 +1,22 @@
 package com.sungjack.springbootmall.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class User {
 
     private Integer userId;
 
+
+//    @JsonProperty("e_mail")//自動將email變數的key 轉換成e_mail
     private String email;
 
+
+
+    @JsonIgnore//不會將password變數傳給前端
     private String password;
 
     private Date createdDate;
